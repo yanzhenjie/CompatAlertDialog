@@ -7,7 +7,7 @@ Material Design风格的AlertDialog，内部在API Version <= 20时使用Appcoma
 ## 引入项目
 Gradle
 ```
-compile 'com.yanzhenjie.alertdialog:alertdialog:1.0.0'
+compile 'com.yanzhenjie.alertdialog:alertdialog:1.0.1'
 ```
 
 Or Maven:
@@ -15,14 +15,14 @@ Or Maven:
 <dependency>
   <groupId>com.yanzhenjie.alertdialog</groupId>
   <artifactId>AlertDialog</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
 
 lvy：
 ```
-<dependency org='com.yanzhenjie.alertdialog' name='AlertDialog' rev='1.0.0'>
+<dependency org='com.yanzhenjie.alertdialog' name='AlertDialog' rev='1.0.1'>
   <artifact name='AlertDialog' ext='pom' ></artifact>
 </dependency>
 ```
@@ -39,7 +39,7 @@ lvy：
  * 显示正常用法的按钮。
  */
 private void onCommonClick() {
-    AlertDialog.build(this)
+    AlertDialog.newBuilder(this)
         .setTitle("标题")
         .setMessage("提示信息")
         .setNeutralButton("忽略", (dialog, which) -> {
@@ -60,7 +60,7 @@ private void onCommonClick() {
  * 特殊用法被点击。
  */
 private void onSpecialClick() {
-    AlertDialog alertDialog = AlertDialog.build(this)
+    AlertDialog alertDialog = AlertDialog.newBuilder(this)
         .setTitle("标题")
         .setMessage("提示信息")
         // Listener 写null，Button被点击时，Alertdialog就不会自动dismiss了。
@@ -94,7 +94,7 @@ private void onSpecialClick() {
 
 ## License
 ```text
-Copyright 2016 Yan Zhenjie
+Copyright 2017 Yan Zhenjie
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

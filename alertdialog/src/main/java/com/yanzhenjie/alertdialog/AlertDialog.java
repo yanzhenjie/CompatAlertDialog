@@ -41,18 +41,55 @@ import android.widget.ListView;
  */
 public abstract class AlertDialog {
 
-    public static Builder build(Context context) {
+    /**
+     * Create new Builder.
+     *
+     * @param context context.
+     * @return {@link Builder}.
+     */
+    public static Builder newBuilder(Context context) {
         if (Build.VERSION.SDK_INT >= 21) {
             return new APi21Builder(context);
         }
         return new Api20Builder(context);
     }
 
-    public static Builder build(Context context, int themeResId) {
+    /**
+     * Create new Builder.
+     *
+     * @param context    context.
+     * @param themeResId theme res id.
+     * @return {@link Builder}.
+     */
+    public static Builder newBuilder(Context context, int themeResId) {
         if (Build.VERSION.SDK_INT >= 21) {
             return new APi21Builder(context, themeResId);
         }
         return new Api20Builder(context, themeResId);
+    }
+
+    /**
+     * Create new Builder.
+     *
+     * @param context context.
+     * @return {@link Builder}.
+     * @deprecated use {@link #newBuilder(Context)} instead.
+     */
+    @Deprecated
+    public static Builder build(Context context) {
+        return newBuilder(context);
+    }
+
+    /**
+     * Create new Builder.
+     *
+     * @param context    context.
+     * @param themeResId theme res id.
+     * @return {@link Builder}.
+     * @deprecated use {@link #newBuilder(Context, int)} instead.
+     */
+    public static Builder build(Context context, int themeResId) {
+        return newBuilder(context, themeResId);
     }
 
     public abstract void show();
@@ -171,78 +208,78 @@ public abstract class AlertDialog {
 
     private static class Api20Dialog extends AlertDialog {
 
-        private android.support.v7.app.AlertDialog alertDialogSupport;
+        private android.support.v7.app.AlertDialog alertDialog;
 
         private Api20Dialog(android.support.v7.app.AlertDialog alertDialog) {
-            this.alertDialogSupport = alertDialog;
+            this.alertDialog = alertDialog;
         }
 
         @Override
         public void show() {
-            alertDialogSupport.show();
+            alertDialog.show();
         }
 
         @Override
         public void dismiss() {
-            if (alertDialogSupport.isShowing())
-                alertDialogSupport.dismiss();
+            if (alertDialog.isShowing())
+                alertDialog.dismiss();
         }
 
         @Override
         public boolean isShowing() {
-            return alertDialogSupport.isShowing();
+            return alertDialog.isShowing();
         }
 
         @Override
         public void cancel() {
-            if (alertDialogSupport.isShowing())
-                alertDialogSupport.cancel();
+            if (alertDialog.isShowing())
+                alertDialog.cancel();
         }
 
         @Override
         public Button getButton(int whichButton) {
-            return alertDialogSupport.getButton(whichButton);
+            return alertDialog.getButton(whichButton);
         }
 
         @Nullable
         @Override
         public ListView getListView() {
-            return alertDialogSupport.getListView();
+            return alertDialog.getListView();
         }
 
         @NonNull
         @Override
         public Context getContext() {
-            return alertDialogSupport.getContext();
+            return alertDialog.getContext();
         }
 
         @Nullable
         @Override
         public View getCurrentFocus() {
-            return alertDialogSupport.getCurrentFocus();
+            return alertDialog.getCurrentFocus();
         }
 
         @NonNull
         @Override
         public LayoutInflater getLayoutInflater() {
-            return alertDialogSupport.getLayoutInflater();
+            return alertDialog.getLayoutInflater();
         }
 
         @Nullable
         @Override
         public Activity getOwnerActivity() {
-            return alertDialogSupport.getOwnerActivity();
+            return alertDialog.getOwnerActivity();
         }
 
         @Override
         public int getVolumeControlStream() {
-            return alertDialogSupport.getVolumeControlStream();
+            return alertDialog.getVolumeControlStream();
         }
 
         @Nullable
         @Override
         public Window getWindow() {
-            return alertDialogSupport.getWindow();
+            return alertDialog.getWindow();
         }
     }
 
@@ -331,232 +368,232 @@ public abstract class AlertDialog {
 
     private static class APi21Builder implements Builder {
 
-        private android.app.AlertDialog.Builder builderApp;
+        private android.app.AlertDialog.Builder builder;
 
         private APi21Builder(@NonNull Context context) {
             this(context, 0);
         }
 
         private APi21Builder(@NonNull Context context, @StyleRes int themeResId) {
-            builderApp = new android.app.AlertDialog.Builder(context, themeResId);
+            builder = new android.app.AlertDialog.Builder(context, themeResId);
         }
 
         @NonNull
         @Override
         public Context getContext() {
-            return builderApp.getContext();
+            return builder.getContext();
         }
 
         @Override
         public Builder setTitle(@StringRes int titleId) {
-            builderApp.setTitle(titleId);
+            builder.setTitle(titleId);
             return this;
         }
 
         @Override
         public Builder setTitle(CharSequence title) {
-            builderApp.setTitle(title);
+            builder.setTitle(title);
             return this;
         }
 
         @Override
         public Builder setCustomTitle(View customTitleView) {
-            builderApp.setCustomTitle(customTitleView);
+            builder.setCustomTitle(customTitleView);
             return this;
         }
 
         @Override
         public Builder setMessage(@StringRes int messageId) {
-            builderApp.setMessage(messageId);
+            builder.setMessage(messageId);
             return this;
         }
 
         @Override
         public Builder setMessage(CharSequence message) {
-            builderApp.setMessage(message);
+            builder.setMessage(message);
             return this;
         }
 
         @Override
         public Builder setIcon(@DrawableRes int iconId) {
-            builderApp.setIcon(iconId);
+            builder.setIcon(iconId);
             return this;
         }
 
         @Override
         public Builder setIcon(Drawable icon) {
-            builderApp.setIcon(icon);
+            builder.setIcon(icon);
             return this;
         }
 
         @Override
         public Builder setIconAttribute(@AttrRes int attrId) {
-            builderApp.setIconAttribute(attrId);
+            builder.setIconAttribute(attrId);
             return this;
         }
 
         @Override
         public Builder setPositiveButton(@StringRes int textId, final DialogInterface.OnClickListener
                 listener) {
-            builderApp.setPositiveButton(textId, listener);
+            builder.setPositiveButton(textId, listener);
             return this;
         }
 
         @Override
         public Builder setPositiveButton(CharSequence text, final DialogInterface.OnClickListener listener) {
-            builderApp.setPositiveButton(text, listener);
+            builder.setPositiveButton(text, listener);
             return this;
         }
 
         @Override
         public Builder setNegativeButton(@StringRes int textId, final DialogInterface.OnClickListener
                 listener) {
-            builderApp.setNegativeButton(textId, listener);
+            builder.setNegativeButton(textId, listener);
             return this;
         }
 
         @Override
         public Builder setNegativeButton(CharSequence text, final DialogInterface.OnClickListener listener) {
-            builderApp.setNegativeButton(text, listener);
+            builder.setNegativeButton(text, listener);
             return this;
         }
 
         @Override
         public Builder setNeutralButton(@StringRes int textId, final DialogInterface.OnClickListener
                 listener) {
-            builderApp.setNeutralButton(textId, listener);
+            builder.setNeutralButton(textId, listener);
             return this;
         }
 
         @Override
         public Builder setNeutralButton(CharSequence text, final DialogInterface.OnClickListener listener) {
-            builderApp.setNeutralButton(text, listener);
+            builder.setNeutralButton(text, listener);
             return this;
         }
 
         @Override
         public Builder setCancelable(boolean cancelable) {
-            builderApp.setCancelable(cancelable);
+            builder.setCancelable(cancelable);
             return this;
         }
 
         @Override
         public Builder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
-            builderApp.setOnCancelListener(onCancelListener);
+            builder.setOnCancelListener(onCancelListener);
             return this;
         }
 
         @Override
         public Builder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                builderApp.setOnDismissListener(onDismissListener);
+                builder.setOnDismissListener(onDismissListener);
             }
             return this;
         }
 
         @Override
         public Builder setOnKeyListener(DialogInterface.OnKeyListener onKeyListener) {
-            builderApp.setOnKeyListener(onKeyListener);
+            builder.setOnKeyListener(onKeyListener);
             return this;
         }
 
         @Override
         public Builder setItems(@ArrayRes int itemsId, final DialogInterface.OnClickListener listener) {
-            builderApp.setItems(itemsId, listener);
+            builder.setItems(itemsId, listener);
             return this;
         }
 
         @Override
         public Builder setItems(CharSequence[] items, final DialogInterface.OnClickListener listener) {
-            builderApp.setItems(items, listener);
+            builder.setItems(items, listener);
             return this;
         }
 
         @Override
         public Builder setAdapter(final ListAdapter adapter, final DialogInterface.OnClickListener listener) {
-            builderApp.setAdapter(adapter, listener);
+            builder.setAdapter(adapter, listener);
             return this;
         }
 
         @Override
         public Builder setCursor(final Cursor cursor, final DialogInterface.OnClickListener listener,
                                  String labelColumn) {
-            builderApp.setCursor(cursor, listener, labelColumn);
+            builder.setCursor(cursor, listener, labelColumn);
             return this;
         }
 
         @Override
         public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems, final
         DialogInterface.OnMultiChoiceClickListener listener) {
-            builderApp.setMultiChoiceItems(itemsId, checkedItems, listener);
+            builder.setMultiChoiceItems(itemsId, checkedItems, listener);
             return this;
         }
 
         @Override
         public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems, final
         DialogInterface.OnMultiChoiceClickListener listener) {
-            builderApp.setMultiChoiceItems(items, checkedItems, listener);
+            builder.setMultiChoiceItems(items, checkedItems, listener);
             return this;
         }
 
         @Override
         public Builder setMultiChoiceItems(Cursor cursor, String isCheckedColumn, String labelColumn, final
         DialogInterface.OnMultiChoiceClickListener listener) {
-            builderApp.setMultiChoiceItems(cursor, isCheckedColumn, labelColumn, listener);
+            builder.setMultiChoiceItems(cursor, isCheckedColumn, labelColumn, listener);
             return this;
         }
 
         @Override
         public Builder setSingleChoiceItems(@ArrayRes int itemsId, int checkedItem, final DialogInterface
                 .OnClickListener listener) {
-            builderApp.setSingleChoiceItems(itemsId, checkedItem, listener);
+            builder.setSingleChoiceItems(itemsId, checkedItem, listener);
             return this;
         }
 
         @Override
         public Builder setSingleChoiceItems(Cursor cursor, int checkedItem, String labelColumn, final
         DialogInterface.OnClickListener listener) {
-            builderApp.setSingleChoiceItems(cursor, checkedItem, labelColumn, listener);
+            builder.setSingleChoiceItems(cursor, checkedItem, labelColumn, listener);
             return this;
         }
 
         @Override
         public Builder setSingleChoiceItems(CharSequence[] items, int checkedItem, final DialogInterface
                 .OnClickListener listener) {
-            builderApp.setSingleChoiceItems(items, checkedItem, listener);
+            builder.setSingleChoiceItems(items, checkedItem, listener);
             return this;
         }
 
         @Override
         public Builder setSingleChoiceItems(ListAdapter adapter, int checkedItem, final DialogInterface
                 .OnClickListener listener) {
-            builderApp.setSingleChoiceItems(adapter, checkedItem, listener);
+            builder.setSingleChoiceItems(adapter, checkedItem, listener);
             return this;
         }
 
         @Override
         public Builder setOnItemSelectedListener(final AdapterView.OnItemSelectedListener listener) {
-            builderApp.setOnItemSelectedListener(listener);
+            builder.setOnItemSelectedListener(listener);
             return this;
         }
 
         @Override
         public Builder setView(int layoutResId) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builderApp.setView(layoutResId);
+                builder.setView(layoutResId);
             }
             return this;
         }
 
         @Override
         public Builder setView(View view) {
-            builderApp.setView(view);
+            builder.setView(view);
             return this;
         }
 
         @Override
         public AlertDialog create() {
-            return new Api21Dialog(builderApp.create());
+            return new Api21Dialog(builder.create());
         }
 
         @Override
@@ -570,194 +607,194 @@ public abstract class AlertDialog {
 
     private static class Api20Builder implements Builder {
 
-        private android.support.v7.app.AlertDialog.Builder builderSupport;
+        private android.support.v7.app.AlertDialog.Builder builder;
 
         private Api20Builder(@NonNull Context context) {
             this(context, 0);
         }
 
         private Api20Builder(@NonNull Context context, @StyleRes int themeResId) {
-            builderSupport = new android.support.v7.app.AlertDialog.Builder(context, themeResId);
+            builder = new android.support.v7.app.AlertDialog.Builder(context, themeResId);
         }
 
         @NonNull
         public Context getContext() {
-            return builderSupport.getContext();
+            return builder.getContext();
         }
 
         public Builder setTitle(@StringRes int titleId) {
-            builderSupport.setTitle(titleId);
+            builder.setTitle(titleId);
             return this;
         }
 
         public Builder setTitle(CharSequence title) {
-            builderSupport.setTitle(title);
+            builder.setTitle(title);
             return this;
         }
 
         public Builder setCustomTitle(View customTitleView) {
-            builderSupport.setCustomTitle(customTitleView);
+            builder.setCustomTitle(customTitleView);
             return this;
         }
 
         public Builder setMessage(@StringRes int messageId) {
-            builderSupport.setMessage(messageId);
+            builder.setMessage(messageId);
             return this;
         }
 
         public Builder setMessage(CharSequence message) {
-            builderSupport.setMessage(message);
+            builder.setMessage(message);
             return this;
         }
 
         public Builder setIcon(@DrawableRes int iconId) {
-            builderSupport.setIcon(iconId);
+            builder.setIcon(iconId);
             return this;
         }
 
         public Builder setIcon(Drawable icon) {
-            builderSupport.setIcon(icon);
+            builder.setIcon(icon);
             return this;
         }
 
         public Builder setIconAttribute(@AttrRes int attrId) {
-            builderSupport.setIconAttribute(attrId);
+            builder.setIconAttribute(attrId);
             return this;
         }
 
         public Builder setPositiveButton(@StringRes int textId, final DialogInterface.OnClickListener
                 listener) {
-            builderSupport.setPositiveButton(textId, listener);
+            builder.setPositiveButton(textId, listener);
             return this;
         }
 
         public Builder setPositiveButton(CharSequence text, final DialogInterface.OnClickListener listener) {
-            builderSupport.setPositiveButton(text, listener);
+            builder.setPositiveButton(text, listener);
             return this;
         }
 
         public Builder setNegativeButton(@StringRes int textId, final DialogInterface.OnClickListener
                 listener) {
-            builderSupport.setNegativeButton(textId, listener);
+            builder.setNegativeButton(textId, listener);
             return this;
         }
 
         public Builder setNegativeButton(CharSequence text, final DialogInterface.OnClickListener listener) {
-            builderSupport.setNegativeButton(text, listener);
+            builder.setNegativeButton(text, listener);
             return this;
         }
 
         public Builder setNeutralButton(@StringRes int textId, final DialogInterface.OnClickListener
                 listener) {
-            builderSupport.setNeutralButton(textId, listener);
+            builder.setNeutralButton(textId, listener);
             return this;
         }
 
         public Builder setNeutralButton(CharSequence text, final DialogInterface.OnClickListener listener) {
-            builderSupport.setNeutralButton(text, listener);
+            builder.setNeutralButton(text, listener);
             return this;
         }
 
         public Builder setCancelable(boolean cancelable) {
-            builderSupport.setCancelable(cancelable);
+            builder.setCancelable(cancelable);
             return this;
         }
 
         public Builder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
-            builderSupport.setOnCancelListener(onCancelListener);
+            builder.setOnCancelListener(onCancelListener);
             return this;
         }
 
         public Builder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-            builderSupport.setOnDismissListener(onDismissListener);
+            builder.setOnDismissListener(onDismissListener);
             return this;
         }
 
         public Builder setOnKeyListener(DialogInterface.OnKeyListener onKeyListener) {
-            builderSupport.setOnKeyListener(onKeyListener);
+            builder.setOnKeyListener(onKeyListener);
             return this;
         }
 
         public Builder setItems(@ArrayRes int itemsId, final DialogInterface.OnClickListener listener) {
-            builderSupport.setItems(itemsId, listener);
+            builder.setItems(itemsId, listener);
             return this;
         }
 
         public Builder setItems(CharSequence[] items, final DialogInterface.OnClickListener listener) {
-            builderSupport.setItems(items, listener);
+            builder.setItems(items, listener);
             return this;
         }
 
         public Builder setAdapter(final ListAdapter adapter, final DialogInterface.OnClickListener listener) {
-            builderSupport.setAdapter(adapter, listener);
+            builder.setAdapter(adapter, listener);
             return this;
         }
 
         public Builder setCursor(final Cursor cursor, final DialogInterface.OnClickListener listener,
                                  String labelColumn) {
-            builderSupport.setCursor(cursor, listener, labelColumn);
+            builder.setCursor(cursor, listener, labelColumn);
             return this;
         }
 
         public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems, final
         DialogInterface.OnMultiChoiceClickListener listener) {
-            builderSupport.setMultiChoiceItems(itemsId, checkedItems, listener);
+            builder.setMultiChoiceItems(itemsId, checkedItems, listener);
             return this;
         }
 
         public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems, final
         DialogInterface.OnMultiChoiceClickListener listener) {
-            builderSupport.setMultiChoiceItems(items, checkedItems, listener);
+            builder.setMultiChoiceItems(items, checkedItems, listener);
             return this;
         }
 
         public Builder setMultiChoiceItems(Cursor cursor, String isCheckedColumn, String labelColumn, final
         DialogInterface.OnMultiChoiceClickListener listener) {
-            builderSupport.setMultiChoiceItems(cursor, isCheckedColumn, labelColumn, listener);
+            builder.setMultiChoiceItems(cursor, isCheckedColumn, labelColumn, listener);
             return this;
         }
 
         public Builder setSingleChoiceItems(@ArrayRes int itemsId, int checkedItem, final DialogInterface
                 .OnClickListener listener) {
-            builderSupport.setSingleChoiceItems(itemsId, checkedItem, listener);
+            builder.setSingleChoiceItems(itemsId, checkedItem, listener);
             return this;
         }
 
         public Builder setSingleChoiceItems(Cursor cursor, int checkedItem, String labelColumn, final
         DialogInterface.OnClickListener listener) {
-            builderSupport.setSingleChoiceItems(cursor, checkedItem, labelColumn, listener);
+            builder.setSingleChoiceItems(cursor, checkedItem, labelColumn, listener);
             return this;
         }
 
         public Builder setSingleChoiceItems(CharSequence[] items, int checkedItem, final DialogInterface
                 .OnClickListener listener) {
-            builderSupport.setSingleChoiceItems(items, checkedItem, listener);
+            builder.setSingleChoiceItems(items, checkedItem, listener);
             return this;
         }
 
         public Builder setSingleChoiceItems(ListAdapter adapter, int checkedItem, final DialogInterface
                 .OnClickListener listener) {
-            builderSupport.setSingleChoiceItems(adapter, checkedItem, listener);
+            builder.setSingleChoiceItems(adapter, checkedItem, listener);
             return this;
         }
 
         public Builder setOnItemSelectedListener(final AdapterView.OnItemSelectedListener listener) {
-            builderSupport.setOnItemSelectedListener(listener);
+            builder.setOnItemSelectedListener(listener);
             return this;
         }
 
         public Builder setView(int layoutResId) {
-            builderSupport.setView(layoutResId);
+            builder.setView(layoutResId);
             return this;
         }
 
         public Builder setView(View view) {
-            builderSupport.setView(view);
+            builder.setView(view);
             return this;
         }
 
         public AlertDialog create() {
-            return new Api20Dialog(builderSupport.create());
+            return new Api20Dialog(builder.create());
         }
 
         public AlertDialog show() {

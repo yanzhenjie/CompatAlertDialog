@@ -7,19 +7,52 @@ ext {
     ]
 
     android = [
-            compileSdkVersion: 24,
-            buildToolsVersion: "24.0.3",
+            compileSdkVersion: 25,
+            buildToolsVersion: "25.0.2",
             minSdkVersion    : 11,
-            targetSdkVersion : 24,
+            targetSdkVersion : 25,
 
             applicationId    : "com.yanzhenjie.alertdialog",
             versionCode      : 1,
             versionName      : "1.0"
     ]
 
+    maven = [
+            // name
+            binrayLibrary : "alertdialog",
+
+            // library
+            version       : "1.0.1",
+
+            siteUrl       : 'https://github.com/yanzhenjie/CompatAlertDialog',
+            gitUrl        : 'git@github.com:yanzhenjie/CompatAlertDialog.git',
+
+            group         : "com.yanzhenjie.alertdialog",
+
+            // project
+            packaging     : 'aar',
+            name          : 'AlertDialog',
+            description   : 'AlertDialog for Android',
+
+            // project.license
+            licenseName   : 'The Apache Software License, Version 2.0',
+            licenseUrl    : 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+
+            // project.developers
+            developerId   : 'yanzhenjie',
+            developerName : 'yanzhenjie',
+            developerEmail: 'smallajax@foxmail.com',
+
+            // bintray
+            bintrayRepo   : "maven",
+            bintrayUser   : 'yolanda',
+            bintrayLicense: "Apache-2.0"
+    ]
+
 
     dependencies = [
-            appcompat: 'com.android.support:appcompat-v7:24.2.1',
-            design   : 'com.android.support:design:24.2.1'
+            appcompat: 'com.android.support:appcompat-v7:25.3.1',
+            design   : 'com.android.support:design:25.3.1',
+            alertdialog: 'com.yanzhenjie.alertdialog:alertdialog:1.0.1'
     ]
 }

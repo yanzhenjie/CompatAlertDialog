@@ -23,8 +23,9 @@ android {
 }
 
 dependencies {
-    compile project(':alertdialog')
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    // compile rootProject.ext.dependencies.alertdialog
+    compile project(':alertdialog')
     compile rootProject.ext.dependencies.appcompat
     compile rootProject.ext.dependencies.design
 }

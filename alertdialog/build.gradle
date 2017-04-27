@@ -14,4 +14,4 @@ dependencies {
     compile rootProject.ext.dependencies.appcompat
 }
 
-apply from: "maven.gradle"
+apply from: "../maven.gradle"
